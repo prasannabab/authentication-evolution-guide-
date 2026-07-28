@@ -92,4 +92,29 @@ POST /login
     "password":"Password123"
 }
 ```
+### Step 2
+Server validates credentials.
+```
+Database
 
+Alice
+Password Hash
+```
+Password matches.
+
+### Step 3
+Server creates a session.
+```
+Random Session ID
+
+9f3d81a4c5e8
+```
+Stores
+```
+Memory
+
+9f3d81a4c5e8
+        │
+        ▼
+Alice
+```
