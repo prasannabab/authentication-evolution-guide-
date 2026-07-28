@@ -118,3 +118,82 @@ Memory
         ▼
 Alice
 ```
+### Step 4
+Server sends
+```
+HTTP/1.1 200 OK
+
+Set-Cookie:
+
+SESSIONID=9f3d81a4c5e8
+```
+### Step 5
+Browser stores cookie.
+```
+Chrome
+
+Cookies
+
+SESSIONID=9f3d81a4c5e8
+```
+### Step 6
+
+User clicks
+
+"My Orders"
+
+Browser automatically sends
+```
+GET /orders
+
+Cookie:
+
+SESSIONID=9f3d81a4c5e8
+```
+##### Notice
+No username.
+No password.
+
+### Step 7
+Server checks
+```
+Session Table
+
+9f3d81a4c5e8
+        │
+        ▼
+Alice
+```
+Server immediately knows
+```
+Current User = Alice
+```
+## Visual Flow
+```
+                Login
+                  │
+                  ▼
+      Username + Password
+                  │
+                  ▼
+          Server Verifies
+                  │
+                  ▼
+       Create Session ID
+                  │
+                  ▼
+      Save in Session Store
+                  │
+                  ▼
+      Send Cookie to Browser
+                  │
+                  ▼
+         Browser Saves Cookie
+                  │
+                  ▼
+ Every Request Automatically Sends Cookie
+                  │
+                  ▼
+        Server Finds User
+
+```
