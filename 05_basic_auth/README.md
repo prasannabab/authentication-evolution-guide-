@@ -504,9 +504,9 @@ One small correction to the overall timeline
 
 For historical accuracy, it's worth noting that <b>HTTP Basic Authentication and cookies/sessions developed around the same era rather than one replacing the other</b>. They addressed different needs:
 
-<b>Sessions + Cookies</b> → Best for browser users logging into websites.
-<b>Basic Authentication</b> → A standardized way for any HTTP client (browsers, scripts, services) to send credentials.
-<b>API Keys</b> → Better for identifying applications instead of users.
-<b>Bearer Tokens/JWT</b> → Better for modern APIs, mobile apps, and distributed systems.
+<b>Sessions + Cookies</b> → Best for browser users logging into websites. <br>
+<b>Basic Authentication</b> → A standardized way for any HTTP client (browsers, scripts, services) to send credentials. <br>
+<b>API Keys</b> → Better for identifying applications instead of users. <br>
+<b>Bearer Tokens/JWT</b> → Better for modern APIs, mobile apps, and distributed systems. <br>
 
 This distinction is important because it helps to understand that authentication methods didn't always evolve by replacing one another—many coexisted because they solved different problems.
