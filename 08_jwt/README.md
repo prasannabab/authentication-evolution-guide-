@@ -2,13 +2,13 @@ This is where everything starts coming together.
 
 By Chapter 8, your readers should already know:
 
-1: Username & Password → Identify the user.
-2: Password Hashing → Protect stored passwords.
-3: HTTPS → Protect data in transit.
-4: Sessions → Remember browser users.
-5: Basic Authentication → Standard HTTP authentication.
-6: API Keys → Identify applications.
-7: Bearer Tokens → Authenticate users for APIs without relying on cookies.
+1: Username & Password → Identify the user.<br>
+2: Password Hashing → Protect stored passwords.<br>
+3: HTTPS → Protect data in transit.<br>
+4: Sessions → Remember browser users.<br>
+5: Basic Authentication → Standard HTTP authentication.<br>
+6: API Keys → Identify applications.<br>
+7: Bearer Tokens → Authenticate users for APIs without relying on cookies.<br>
 
 Now they'll naturally ask:
 
@@ -211,15 +211,7 @@ JWT Structure
 
 A JWT has three parts.
 ```
-Header
-
-.
-
-Payload
-
-.
-
-Signature
+Header.Payload.Signature
 ```
 Example:
 ```
@@ -250,6 +242,7 @@ Token Type
 
 JWT
 ```
+<br>
 ### Part 2 – Payload
 
 Example
