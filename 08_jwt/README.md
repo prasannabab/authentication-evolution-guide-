@@ -303,12 +303,12 @@ aud
 
 Audience
 ```
-Part 3 – Signature
+### Part 3 – Signature
 
 This is the most important part.
 
 Server computes:
-
+```
 Header
 
 +
@@ -326,27 +326,27 @@ Hash
 ↓
 
 Signature
-
+```
 Suppose the payload says
-
+```
 {
   "role":"admin"
 }
-
+```
 Attacker changes it to
-
+```
 {
   "role":"superadmin"
 }
-
+```
 Now the signature no longer matches.
 
 Server immediately rejects the token.
 
-Complete JWT
+### Complete JWT
 
 Looks like
-
+```
 eyJhbGci...
 
 .
@@ -356,7 +356,9 @@ eyJzdWI...
 .
 
 Qx9gK...
-Request Flow
+```
+#### Request Flow
+```
 Alice
 
 ↓
@@ -378,19 +380,20 @@ Every Request
 ↓
 
 Authorization: Bearer JWT
-
+```
 Server receives JWT.
 
 Instead of querying a database, it:
 
-Verifies the signature.
-Checks expiration.
-Reads the payload.
-Knows the user.
-Python Example
+1: Verifies the signature.
+2: Checks expiration.
+3: Reads the payload.
+4:Knows the user.
+<br>
+####Python Example
 
 Create a JWT using PyJWT.
-
+```
 import jwt
 import datetime
 
@@ -423,14 +426,14 @@ Output
     "role": "admin",
     "exp": 1750000000
 }
-
+```
 No database lookup required.
-
-What Problem Did JWT Solve?
-Problem 1 – Database Lookup
+<br>
+### What Problem Did JWT Solve?
+#### Problem 1 – Database Lookup
 
 Before JWT
-
+```
 Bearer Token
 
 ↓
@@ -440,9 +443,9 @@ Database Lookup
 ↓
 
 Find User
-
+```
 With JWT
-
+```
 Bearer Token
 
 ↓
@@ -452,7 +455,7 @@ Verify Signature
 ↓
 
 Read Payload
-
+```
 No token lookup table.
 
 Problem 2 – Microservices
