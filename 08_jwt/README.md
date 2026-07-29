@@ -458,10 +458,10 @@ Read Payload
 ```
 No token lookup table.
 
-Problem 2 – Microservices
+#### Problem 2 – Microservices
 
 Before JWT
-
+```
 Payment Service
 
 ↓
@@ -471,9 +471,9 @@ Redis
 ↓
 
 User
-
+```
 After JWT
-
+```
 Payment Service
 
 ↓
@@ -483,10 +483,10 @@ Verify JWT
 ↓
 
 Done
-
+```
 Every service can validate the same token independently (as long as it has the signing secret or public key).
 
-Problem 3 – Scalability
+#### Problem 3 – Scalability
 
 Ten servers?
 
@@ -494,70 +494,71 @@ Hundred servers?
 
 No shared session or token store is required for access token validation in the common JWT approach.
 
-Does JWT Eliminate the Database Completely?
+#### Does JWT Eliminate the Database Completely?
 
-No.
+> No.
 
 This is a common misunderstanding.
 
 Suppose the payload contains
-
+```
 {
    "sub":"alice"
 }
-
+```
 If the request needs Alice's orders,
 
 the application still queries:
-
+```
 Orders Table
-
+```
 JWT removes the need to look up who the token belongs to, not the need to fetch application data.
 
-Security Problems Introduced by JWT
-Problem 1 – Cannot Easily Revoke
+### Security Problems Introduced by JWT
+#### Problem 1 – Cannot Easily Revoke
 
 Suppose Alice logs out.
 
 The token is still valid until:
-
+```
 exp
-
+```
 expires.
 
 That's why refresh tokens, short-lived access tokens, or token revocation strategies are commonly used.
 
-Problem 2 – Never Store Sensitive Data
+#### Problem 2 – Never Store Sensitive Data
 
 Bad payload:
-
+```
 {
    "password":"Password123"
 }
-
-JWT payloads are encoded, not encrypted.
+```
+JWT payloads are <b>encoded</b>, not encrypted.
 
 Anyone holding the token can decode the header and payload.
 
 Never store passwords or secrets inside a JWT.
 
-JWT Is Signed, Not Encrypted
+### JWT Is Signed, Not Encrypted
 
 Many beginners think JWTs are encrypted.
 
-Usually they are not.
+Usually they are <b>not</b>.
 
 Example payload
-
+```
 {
    "user":"Alice"
 }
-
+```
 Anyone can Base64URL-decode it.
 
 The signature prevents modification, but it does not hide the contents.
 
 Evolution
+```
 Bearer Token
 
 ↓
@@ -583,34 +584,33 @@ Signature Verification
 ↓
 
 No Token Lookup
-Important Clarification
+```
+### Important Clarification
 
 One of the biggest misconceptions is:
 
-Bearer Token and JWT are not the same thing.
+> <b>Bearer Token and JWT are not the same thing</b>.
 
 Think of it like this:
-
+```
 Authorization: Bearer <something>
+```
+The <b><something></b> could be:
 
-The <something> could be:
+- A random opaque token (requiring a database or introspection lookup)
+- A JWT
+- Another token format
 
-A random opaque token (requiring a database or introspection lookup)
-A JWT
-Another token format
+<b>Bearer</b> describes <b>how the token is sent</b> (the HTTP authentication scheme).
 
-Bearer describes how the token is sent (the HTTP authentication scheme).
+<b>JWT</b> describes <b>what the token looks like</b> (its format and contents).
 
-JWT describes what the token looks like (its format and contents).
+So JWT did <b>not replace Bearer Tokens</b>.
 
-So JWT did not replace Bearer Tokens.
+JWT became one of the <b>most popular formats for Bearer Tokens</b>.
 
-JWT became one of the most popular formats for Bearer Tokens.
 
-A more accurate chapter flow for your book
-
-I would organize the story like this:
-
+```
 Chapter 7
 Bearer Authentication
 │
@@ -636,5 +636,6 @@ JWT
 
 Chapter 9
 Refresh Tokens
+```
 
 That progression tells the historical and technical story much more naturally than introducing JWT without first establishing what a bearer token actually is.
