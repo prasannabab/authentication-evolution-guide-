@@ -12,7 +12,7 @@ By Chapter 8, your readers should already know:
 
 Now they'll naturally ask:
 
-> <b>If Bearer Tokens already work, why was JWT invented?</b>
+ <b>If Bearer Tokens already work, why was JWT invented?</b>
 
 This is the perfect transition.
 
