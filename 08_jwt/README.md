@@ -2,81 +2,81 @@ This is where everything starts coming together.
 
 By Chapter 8, your readers should already know:
 
-Username & Password → Identify the user.
-Password Hashing → Protect stored passwords.
-HTTPS → Protect data in transit.
-Sessions → Remember browser users.
-Basic Authentication → Standard HTTP authentication.
-API Keys → Identify applications.
-Bearer Tokens → Authenticate users for APIs without relying on cookies.
+1: Username & Password → Identify the user.
+2: Password Hashing → Protect stored passwords.
+3: HTTPS → Protect data in transit.
+4: Sessions → Remember browser users.
+5: Basic Authentication → Standard HTTP authentication.
+6: API Keys → Identify applications.
+7: Bearer Tokens → Authenticate users for APIs without relying on cookies.
 
 Now they'll naturally ask:
 
-If Bearer Tokens already work, why was JWT invented?
+> <b>If Bearer Tokens already work, why was JWT invented?</b>
 
 This is the perfect transition.
 
-Chapter 8 – JWT (JSON Web Token)
+# Chapter 8 – JWT (JSON Web Token)
 The Big Question
 
 In Chapter 7, we learned that clients send:
-
+```
 Authorization: Bearer abc123xyz
-
+```
 The server receives:
-
+```
 abc123xyz
-
+```
 Question:
 
-What is abc123xyz?
+What is <b>abc123xyz</b>?
 
 The answer could be anything.
 
 It might be:
-
+```
 12345
-
+```
 or
-
+```
 random-secret-string
-
+```
 The HTTP specification only says:
-
+```
 Authorization: Bearer <token>
+```
+It <b>does not define the token format.</b>
 
-It does not define the token format.
-
-What Happened Before JWT?
+## What Happened Before JWT?
 
 Suppose we build our own Bearer Token system.
 
 Alice logs in.
 
 Server creates
-
+```
 token = xyz123
-
+```
 Server stores
-
+```
 Token Store
 
 xyz123
       ↓
 Alice
-
+```
 Client sends
-
+```
 Authorization: Bearer xyz123
-
+```
 Server receives it.
 
 Now the server asks:
-
+```
 Who owns xyz123?
-
+```
 It checks the database.
-
+```
 Token Store
 
 xyz123
@@ -84,17 +84,17 @@ xyz123
 ↓
 
 Alice
-
+```
 Works perfectly.
 
-But a New Problem Appeared
+### But a New Problem Appeared
 
 Imagine Google.
 
 Millions of users.
 
 Every request requires:
-
+```
 Database Lookup
 
 ↓
@@ -104,15 +104,15 @@ Find Token
 ↓
 
 Find User
-
+```
 Every request.
 
 Millions per second.
 
-Microservices Make It Worse
+### Microservices Make It Worse
 
 Imagine Netflix.
-
+```
 Client
 
 ↓
@@ -134,29 +134,29 @@ Payment Service
 ↓
 
 Recommendation Service
-
+```
 Every service receives
-
+```
 Authorization: Bearer xyz123
-
+```
 Each service must ask
-
+```
 Database
 
 ↓
 
 Who owns xyz123?
-
+```
 Thousands of database lookups.
 
 Every second.
 
-Engineers Asked
+#### Engineers Asked
 
 Can the token carry the user information itself?
 
 Instead of
-
+```
 xyz123
 
 ↓
@@ -166,9 +166,9 @@ Database
 ↓
 
 Alice
-
+```
 What if
-
+```
 Token
 
 ↓
@@ -178,41 +178,39 @@ Already Contains
 ↓
 
 Alice
-
-That idea became JWT.
+```
+That idea became <b>JWT</b>.
 
 What Is JWT?
 
 JWT stands for:
-
-JSON
-Web
-Token
-
+```
+<b>JSON Web Token</b>
+``
 Instead of a random string
-
+```
 xyz123
-
+```
 The token contains information.
 
 Example payload:
-
+```
 {
   "user": "Alice",
   "role": "admin",
   "exp": 1750000000
 }
-
+```
 The server no longer needs to ask
-
+```
 Who is Alice?
-
+```
 The answer is inside the token.
 
 JWT Structure
 
 A JWT has three parts.
-
+```
 Header
 
 .
@@ -222,24 +220,24 @@ Payload
 .
 
 Signature
-
+```
 Example:
-
+```
 xxxxx.yyyyy.zzzzz
-
+```
 Three Base64URL-encoded parts separated by dots.
 
-Part 1 – Header
+### Part 1 – Header
 
 Example
-
+```
 {
   "alg": "HS256",
   "typ": "JWT"
 }
-
+```
 Meaning:
-
+```
 Algorithm
 
 ↓
@@ -251,21 +249,22 @@ Token Type
 ↓
 
 JWT
-Part 2 – Payload
+```
+### Part 2 – Payload
 
 Example
-
+```
 {
   "sub": "alice",
   "role": "admin",
   "email": "alice@example.com",
   "exp": 1750000000
 }
-
+```
 This contains claims.
 
 Common claims:
-
+```
 sub
 
 ↓
@@ -303,6 +302,7 @@ aud
 ↓
 
 Audience
+```
 Part 3 – Signature
 
 This is the most important part.
